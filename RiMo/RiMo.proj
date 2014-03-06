@@ -9,7 +9,7 @@
     <FrameworkVersion>3.2.0</FrameworkVersion>
     <AndroidPermissions>
     </AndroidPermissions>
-    <CorePlugins>com.phonegap.plugins.barcodescanner;org.apache.cordova.device</CorePlugins>
+    <CorePlugins>com.phonegap.plugins.barcodescanner;org.apache.cordova.device;org.apache.cordova.file</CorePlugins>
     <DeviceOrientations>Portrait</DeviceOrientations>
     <iOSStatusBarStyle>Default</iOSStatusBarStyle>
     <AndroidHardwareAcceleration>true</AndroidHardwareAcceleration>
