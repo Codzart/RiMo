@@ -3,6 +3,11 @@
         app = global.app = global.app || {};
 
     PaymentViewModel = kendo.data.ObservableObject.extend({
+        /*isMerchantSet: false,
+        merchantAccount: null,
+        payAmount: 0,
+        payUnit: "USD",
+        units: ["USD","XRP","BTC","EUR","LTC","DOGE"], */
         paymentDataSource: null,
 
         init: function () {
@@ -17,19 +22,14 @@
                         url: "https://ripple-rest.herokuapp.com/api/v1/addresses/rMyFEkYYTjzN23Qznon6yPtw297AV124ER/next_notification",
                         dataType: "json",
                         contentType: 'application/json; charset=utf-8',
-            			type: "GET",
-                        data: {
-                        sendVar1: var1,
-                        sendVar2: var2
-                        }
+            			type: "GET"
                     },
                     parameterMap: function (data, type) {
                         if(type = "read"){  
                             var re = data.notification;
                             console.log(re);
                             alert(re);
-                            return Array(data.notification);
-                            
+                            return Array(data.notification);                            
                         }
                         else if (type === "create") {
                             return JSON.stringify(data);

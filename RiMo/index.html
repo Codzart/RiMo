@@ -23,12 +23,11 @@
     <!--Home-->
     <div id="tabstrip-home"
         data-role="view"
-        data-title="RipMo">
-
+        data-title="RiMo">
         <div class="view-content" style="text-align:center;">
+            <a id="skin-change" data-role="button" data-click="app.changeSkin">Flat</a>
             <h1>Texas Bitcoin Conference 2014</h1>Hackathon<br><br>
-            <p><br><br>Ripple Mobile Merchant App<br><br></p><p>It doesn't get much simpler. Just enter the sale details, and present the scan code for payment.</p>
-        
+            <p><br><br>Ripple Mobile Merchant App<br><br></p><p>It doesn't get much simpler. Just enter the sale details, and present the scan code to your customer for payment.</p>        
         </div>
     </div>
     
@@ -36,8 +35,34 @@
     <div id="tabstrip-details"
         data-role="view"
         data-title="Scan to Pay">
-        <div class="view-content" style="text-align:center;">
-         
+        <div class="view-content" style="align:center;">            
+            <form data-bind="events: { keyup: checkEnter }">
+                <ul data-role="listview" data-style="inset" data-bind="invisible: isLoggedIn">
+                    <li>
+                        <input id="setMerchant" data-role="button" type="button" value="Set Merchant Account" style="width:100%;"/>
+                    </li>
+                    <li>
+                        <label>
+                            Amount
+                                <input id="amt" type="number" step="any" min="0" onkeypress='validate(event)' pattern="[0-9]*[.,]?[0-9]+" />
+                        </label>
+                    </li>
+                    <li>
+                        <label>
+                            Currency
+                            <select id="unit">
+                                <option>USD</option>
+                                <option>XRP</option>
+                                <option>BTC</option>
+                                <option>EUR</option>
+                                <option>LTC</option>
+                                
+                            </select>
+                        </label>
+                    </li>
+                </ul>
+            </form>
+            <input id="merch" type="hidden" value="rfKbo1ot2JTHKtZCx6VoD1CjQAN1wK19hv"/>
         </div>
     </div>
 
@@ -48,7 +73,9 @@
         <div class="view-content" style="text-align:center;">
             <ul data-role="listview" data-style="inset">
                 <li><p style="text-align:center;">Present the QR Code below to your customer for payment.</p></li>
-                <li style="align:center;"><div id="qrcode" style="width:200px; height:200px; margin-top:15px;"></div></li>
+                <li style="text-align:center;">
+                    <div id="qrcode" style="width:200px; height:200px; margin-top:15px;"></div>
+                </li>
             </ul>                       
         </div>
     </div>
@@ -106,24 +133,38 @@
             <div data-role="tabstrip">
                 <a href="#tabstrip-home" data-icon="home">Home</a>
                 <a href="#tabstrip-details" data-icon="info">Details</a>              
-                <a href="#tabstrip-scan" data-icon="globe">Get Paid</a>               
-                <a href="#tabstrip-payment" data-icon="recents">Recent</a>          
+                <a href="#tabstrip-scan" data-icon="globe">Get Paid</a>         
             </div>
         </div>
     </div>
     
-    <script type="text/javascript">
+<script type="text/javascript">
+        
+function validate(evt) {
+  var theEvent = evt || window.event;
+  var key = theEvent.keyCode || theEvent.which;
+  key = String.fromCharCode( key );
+  var regex = /[0-9]|\./;
+  if( !regex.test(key) ) {
+    theEvent.returnValue = false;
+    if(theEvent.preventDefault) theEvent.preventDefault();
+  }
+}
+        
 var qrcode = new QRCode(document.getElementById("qrcode"), {
 	width : 200,
 	height : 200
 });
 
 function makeCode () {		
-	$merchAccount="rfKbo1ot2JTHKtZCx6VoD1CjQAN1wK19hv";
-    $amt2pay="325";
-    $unit2pay="USD";
+	$merchAccount=$('#merch').val();
+    $amt2pay=($('#amt').val()!="")?$('#amt').val():"0";
+    $unit2pay=$('#unit').val();
+    /*console.log("merch: "+$merchAccount);
+    console.log("amt: "+$amt2pay);
+    console.log("unit: "+$unit2pay);*/
     var uri2pay = kendo.format("https://ripple.com//send?to={0}&amount={1}/{2}",$merchAccount,$amt2pay,$unit2pay);
-	
+	//console.log("uri: "+uri2pay);
 	qrcode.makeCode(uri2pay);
 }
 
