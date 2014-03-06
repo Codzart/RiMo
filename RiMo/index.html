@@ -25,9 +25,10 @@
         data-role="view"
         data-title="RiMo">
         <div class="view-content" style="text-align:center;">
-            <a id="skin-change" data-role="button" data-click="app.changeSkin">Flat</a>
+            
             <h1>Texas Bitcoin Conference 2014</h1>Hackathon<br><br>
-            <p><br><br>Ripple Mobile Merchant App<br><br></p><p>It doesn't get much simpler. Just enter the sale details, and present the scan code to your customer for payment.</p>        
+            <p><br><br>Ripple Mobile Merchant App<br><br></p><p>It doesn't get much simpler. Just enter the sale details, and present the scan code to your customer for payment.</p>
+            <div><a id="skin-change" data-role="button" data-click="app.changeSkin">Flat</a></div>
         </div>
     </div>
     
@@ -152,8 +153,8 @@ function validate(evt) {
 }
         
 var qrcode = new QRCode(document.getElementById("qrcode"), {
-	width : 200,
-	height : 200
+	width : 180,
+	height : 180
 });
 
 function makeCode () {		

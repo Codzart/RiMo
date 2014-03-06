@@ -155,9 +155,9 @@ body, html {
 
 /* DEVICE SPECIFIC STYLES*/
 #skin-change {
-    position: absolute;
-    right: 10px;
-    top: 10px;
+    position: relative;
+    /*right: 10px;
+    top: 10px;*/
 }
 
 .km-ios .km-listview-wrapper .km-listinset li {
