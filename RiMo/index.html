@@ -75,8 +75,9 @@
                 <li style="text-align:center;">
                     <div id="qrcode" class="ctrdiv" style="width:200px; height:200px; margin-top:15px;"></div>
                     <label id="paySummary"></label>
-                </li>
-            </ul>                       
+                </li>                
+            </ul>    
+            <div data-role="" class="unpaid">Status: UNPAID</div>
         </div>
     </div>
     
@@ -173,13 +174,13 @@ var qrcode = new QRCode(document.getElementById("qrcode"), {
 });
 
 function makeCode () {		
-	$merchAccount=$('#merch').val();
+	$merchAccount=localStorage.getItem("com.codzart.rimo.merchant");
     $amt2pay=($('#amt').val()!="")?$('#amt').val():"0";
     $unit2pay=$('#unit').val();
-    /*console.log("merch: "+$merchAccount);
+    console.log("merch: "+$merchAccount);
     console.log("amt: "+$amt2pay);
-    console.log("unit: "+$unit2pay);*/
-    var uri2pay = kendo.format("https://ripple.com//send?to={0}&amount={1}/{2}",$merchAccount,$amt2pay,$unit2pay);
+    console.log("unit: "+$unit2pay);
+    var uri2pay = kendo.format("https://ripple.com/send?to={0}&amount={1}/{2}",$merchAccount,$amt2pay,$unit2pay);
 	//console.log("uri: "+uri2pay);
 	qrcode.makeCode(uri2pay);
     $('#paySummary').html(kendo.format("Pay: {0} {1}",$amt2pay,$unit2pay));
@@ -192,11 +193,11 @@ $("#merch").
 		makeCode();
 	});        
 $("#amt").
-	on("blur", function () {
+	on("change", function () {
 		makeCode();
 	});
 $("#unit").
-	on("blur", function () {
+	on("change", function () {
 		makeCode();
 	});        
         
