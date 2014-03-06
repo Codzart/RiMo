@@ -4,7 +4,7 @@
 
     
     document.addEventListener('deviceready', function () {
-        navigator.splashscreen.hide();
+        if (navigator.splashscreen && navigator.splashscreen.hide) navigator.splashscreen.hide();
         $(document.body).height(window.innerHeight);
 
 		app.run();        
