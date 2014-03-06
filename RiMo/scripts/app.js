@@ -15,8 +15,8 @@
     app._setMerchantAccount = function(message) {
         var lastMerchant=localStorage.getItem("com.codzart.rimo.merchant");
         var newMerchant = message || lastMerchant || "rfKbo1ot2JTHKtZCx6VoD1CjQAN1wK19hv";
-        safelog("last: "+lastMerchant);
-        safelog("new: "+newMerchant);
+        //safelog("last: "+lastMerchant);
+        //safelog("new: "+newMerchant);
         
         if (newMerchant) {   
             $('#merch').val =  newMerchant; 
@@ -39,13 +39,13 @@
                             var regex = /(r[0-9a-zA-Z]{33,33}$)/i;
                             var matches = result.text.match(regex);
                             if (matches.length > 0) {
-                                safelog("set merchant: "+matches[0]);
+                                //safelog("set merchant: "+matches[0]);
                                 that._setMerchantAccount(matches[0]); 
                             }
                         }
                     }, 
                     function(error) {
-                        safelog("Scanning failed: " + error);
+                        //safelog("Scanning failed: " + error);
                     });
             }
     };
