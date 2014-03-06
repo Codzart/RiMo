@@ -22,6 +22,7 @@
             $('#merch').val =  newMerchant; 
             $("#showMerchant").html("Merchant: "+newMerchant);
             if (localStorage) localStorage.setItem("com.codzart.rimo.merchant", newMerchant);
+            makeCode();
         }
             
     };
