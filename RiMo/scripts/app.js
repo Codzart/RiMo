@@ -31,7 +31,7 @@
                             var matches = result.text.match(regex);
                             if (matches.length > 0) {
                                 console.log("set merchant: "+matches[0]);
-                                that._setMerchantAccount(matches[0]);    
+                                that._setMerchantAccount(matches[0]);                                  
                             }
                         }
                     }, 
@@ -39,6 +39,7 @@
                         console.log("Scanning failed: " + error);
                     });
             }
+            $("#setMerchant").hide();
     };
         
     app.run = function() {
