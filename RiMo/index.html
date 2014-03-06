@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <meta charset="utf-8" />
+    <link href="kendo/styles/kendo.mobile.all.min.css" rel="stylesheet" />
+    <link href="styles/main.css" rel="stylesheet" />
+
+    <script src="cordova.js"></script>
+    <script src="kendo/js/jquery.min.js"></script>
+    <script src="kendo/js/kendo.mobile.min.js"></script>
+    
+    <script src="scripts/login.js"></script>
+    <script src="scripts/location.js"></script>
+    <script src="scripts/weather.js"></script>
+    <script src="scripts/app.js"></script>
+    <script src="scripts/money.min.js"></script>
+    <script src="scripts/qrcode.min.js"></script>
+    <script src="scripts/jquery.min.js"></script>
+
+</head>
+<body>
+    <!--Home-->
+    <div id="tabstrip-home"
+        data-role="view"
+        data-title="RipMo">
+
+        <div class="view-content" style="text-align:center;">
+            <h1>Texas Bitcoin Conference 2014</h1>Hackathon<br><br>
+            <p><br><br>Ripple Mobile Merchant App<br><br></p><p>It doesn't get much simpler. Just enter the sale details, and present the scan code for payment.</p>
+        
+        </div>
+    </div>
+    
+    <!--Details-->
+    <div id="tabstrip-details"
+        data-role="view"
+        data-title="Scan to Pay">
+        <div class="view-content" style="text-align:center;">
+         
+        </div>
+    </div>
+
+    <!--Scancode-->
+    <div id="tabstrip-scan"
+        data-role="view"
+        data-title="Scan to Pay">        
+        <div class="view-content" style="text-align:center;">
+            <ul data-role="listview" data-style="inset">
+                <li><p style="text-align:center;">Present the QR Code below to your customer for payment.</p></li>
+                <li style="align:center;"><div id="qrcode" style="width:200px; height:200px; margin-top:15px;"></div></li>
+            </ul>                       
+        </div>
+    </div>
+
+    <!--Payment-->
+    <div id="tabstrip-payment"
+        data-role="view"
+        data-title="Payments"
+        data-model="app.paymentService.viewModel">
+
+        <div class="payment">
+            <p class="payment-title">Recent Transactions</p>
+
+            <div class="separator">
+                <div class="dark"></div>
+                <div class="light"></div>
+            </div>
+
+            <ul class="payment-list"
+                data-role="listview"
+                data-bind="source: paymentDataSource"
+                data-template="payment-template">
+            </ul>
+        </div>
+    </div>
+
+    <!--payment template-->
+    <script type="text/x-kendo-tmpl" id="payment-template">
+        <div>
+            <div class="position-left">
+                <span class="payment-info date">${day}</span>
+            </div>
+            <div class="position-right">
+                <span class="payment-info">${highTemperature}</span>
+                <span class="payment-info">${lowTemperature}</span>
+            </div>
+            <div class="position-center">
+                <span class="payment-icon ${status}"></span>
+            </div>
+        </div>
+    </script>
+
+    <!--Layout-->
+    <div data-role="layout" data-id="tabstrip-layout">
+
+        <!--Header-->
+        <div data-role="header">
+            <div data-role="navbar">
+                <span data-role="view-title"></span>
+            </div>
+        </div>
+
+        <!--Footer-->
+        <div data-role="footer">
+            <div data-role="tabstrip">
+                <a href="#tabstrip-home" data-icon="home">Home</a>
+                <a href="#tabstrip-details" data-icon="info">Details</a>              
+                <a href="#tabstrip-scan" data-icon="globe">Get Paid</a>               
+                <a href="#tabstrip-payment" data-icon="recents">Recent</a>          
+            </div>
+        </div>
+    </div>
+    
+    <script type="text/javascript">
+var qrcode = new QRCode(document.getElementById("qrcode"), {
+	width : 200,
+	height : 200
+});
+
+function makeCode () {		
+	$merchAccount="rfKbo1ot2JTHKtZCx6VoD1CjQAN1wK19hv";
+    $amt2pay="325";
+    $unit2pay="USD";
+    var uri2pay = kendo.format("https://ripple.com//send?to={0}&amount={1}/{2}",$merchAccount,$amt2pay,$unit2pay);
+	
+	qrcode.makeCode(uri2pay);
+}
+
+makeCode();
+
+$("#merch").
+	on("blur", function () {
+		makeCode();
+	});        
+$("#amt").
+	on("blur", function () {
+		makeCode();
+	});
+$("#unit").
+	on("blur", function () {
+		makeCode();
+	});        
+        
+        
+</script>
+</body>
+</html>

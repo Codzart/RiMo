@@ -54,91 +54,12 @@ body, html {
     -webkit-appearance: none;
 }
 
-/* MAP STYLES*/
-#no-map {
-    position: absolute;
-    margin: 0 auto;
-    top: 40%;    
-    text-align: center;
-}
-
-#map-canvas {
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
-}
-
-#map-search-wrap {
-    position: absolute;
-    z-index: 10;
-    background-color: rgba(0, 0, 0, 0.5);
-    padding: 3px;
-    box-sizing: border-box;
-    -webkit-box-sizing: border-box;
-}
-
-#map-address {
-    position: absolute;
-    left: 0;
-    right: 0;
-    margin: 3px 50px 0px 50px;
-    background-color: #fff;
-    font-style: italic;
-    color: #000;
-    padding: 7px 10px;
-    border-radius: 3em;
-    border-width: 1px;
-    border-style: solid;
-    border-color: rgb(180, 180, 180);
-    border-bottom-color: rgb(255, 255, 255);
-    box-shadow: 0 -1px 0 #3C3C3C;
-    -moz-background-clip: border-box;
-    -webkit-background-clip: border-box;
-    background-clip: border-box;
-}
-
-#map-search {
-    float: right;
-    width: 40px;
-    height: 40px;
-    color: #fff;
-    border: none;
-    background: none;
-    background-image: url(../styles/images/search.png);
-    background-repeat: no-repeat;
-    background-position: center center;
-}
-
-#map-search:active {
-    background-image: url(../styles/images/search_active.png);
-    background-repeat: no-repeat;
-}
-
-#map-navigate-home {
-    float: left;
-    width: 40px;
-    height: 40px;
-    color: #fff;
-    border: none;
-    background: none;
-    background-image: url(../styles/images/location.png);
-    background-repeat: no-repeat;
-    background-position: center center;
-}
-
-#map-navigate-home:active {
-    background-image: url(../styles/images/location_active.png);
-    background-repeat: no-repeat;
-}
-
-/* WEATHER STYLES*/
-.weather {
+/* PAYMENT STYLES*/
+.payment {
     padding-top:50px;
 }
 
-.weather .weather-title {
+.payment .payment-title {
     color: #fff;
     font-size: 1.5em;
     line-height: 1.2em;
@@ -152,7 +73,7 @@ body, html {
     width: 100%;
 }
 
-.weather-info {
+.payment-info {
     color: #fff;
     font-size: 1.2em;
     text-shadow: none;
@@ -160,23 +81,23 @@ body, html {
     display: inline-block;
 }
 
-.weather-info.date {
+.payment-info.date {
     margin-top: 7px;
 }
 
-.weather-info.temperature {
+.payment-info.temperature {
     margin-left: 5px;
 }
 
-.weather-info.temperature.low {
+.payment-info.temperature.low {
     color: rgba(0,0,0,0.5);
 }
 
 /* Weather Icons*/
-.weather-icon {
+.payment-icon {
     width: 64px;
     height: 64px;
-    background-image: url(../styles/images/sprite-weather.png);
+    background-image: url(../styles/images/sprite-payment.png);
     background-repeat: no-repeat;
     float: right;
     position: relative;
@@ -184,31 +105,31 @@ body, html {
     left: -10px;
 }
 
-.weather-icon.sunny {
+.payment-icon.sunny {
     background-position: 0px 0px;
 }
 
-.weather-icon.cloudy {
+.payment-icon.cloudy {
     background-position: 0px -64px;
 }
 
-.weather-icon.partly-cloudy {
+.payment-icon.partly-cloudy {
     background-position: 0px -128px;
 }
 
-.weather-icon.partly-sunny {
+.payment-icon.partly-sunny {
     background-position: 0px -192px;
 }
 
-.weather-icon.shower {
+.payment-icon.shower {
     background-position: 0px -256px;
 }
 
-.weather-icon.foggy {
+.payment-icon.foggy {
     background-position: 0px -320px;
 }
 
-.weather-icon.storm {
+.payment-icon.storm {
     background-position: 0px -384px;
 }
 
@@ -257,11 +178,11 @@ body, html {
     color: #2e5968;
 }
 
-.km-android .weather-info.temperature.low {
+.km-android .payment-info.temperature.low {
     color: #2e5968;
 }
 
-.km-ios .km-view .weather {
+.km-ios .km-view .payment {
     background: #5fb4ed; /* Old browsers */
     background: -moz-linear-gradient(top, #5fb4ed 0%, #0076c5 74%); /* FF3.6+ */
     background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#5fb4ed), color-stop(74%,#0076c5)); /* Chrome,Safari4+ */
@@ -270,8 +191,8 @@ body, html {
     background: -ms-linear-gradient(top, #5fb4ed 0%,#0076c5 74%); /* IE10+ */
     background: linear-gradient(to bottom, #5fb4ed 0%,#0076c5 74%); /* W3C */
 }
-.km-ios7 .km-view .weather,
-.km-flat .km-view .weather {
+.km-ios7 .km-view .payment,
+.km-flat .km-view .payment {
     background: #b0b0b0;
 }
 
@@ -349,7 +270,7 @@ body, html {
         background-size: 100%;
     }
 
-    .weather-icon {
+    .payment-icon {
         background-image: url(../styles/images/sprite-weather2x.png);
         background-repeat: no-repeat;
         background-size: 100%;
