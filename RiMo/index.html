@@ -43,7 +43,7 @@
                     <li>
                         <label>
                             Amount
-                                <input id="amt" type="number" step="any" min="0" onkeypress='validate(event)' pattern="[0-9]*[.,]?[0-9]+" />
+                                <input id="amt" type="number" step="any" min="0" onkeypress='keyvalid(event)' pattern="[0-9]*[.,]?[0-9]+" />
                         </label>
                     </li>
                     <li>
@@ -77,7 +77,7 @@
                     <label id="paySummary"></label>
                 </li>                
             </ul>    
-            <div data-role="" class="unpaid">Status: UNPAID</div>
+            <div id="txnStatus" data-role="" class="unpaid">Status: UNPAID</div>
         </div>
     </div>
     
@@ -157,7 +157,7 @@
     
 <script type="text/javascript">
         
-function validate(evt) {
+function keyvalid(evt) {
   var theEvent = evt || window.event;
   var key = theEvent.keyCode || theEvent.which;
   key = String.fromCharCode( key );
@@ -177,31 +177,93 @@ function makeCode () {
 	$merchAccount=localStorage.getItem("com.codzart.rimo.merchant");
     $amt2pay=($('#amt').val()!="")?$('#amt').val():"0";
     $unit2pay=$('#unit').val();
-    console.log("merch: "+$merchAccount);
-    console.log("amt: "+$amt2pay);
-    console.log("unit: "+$unit2pay);
-    var uri2pay = kendo.format("https://ripple.com/send?to={0}&amount={1}/{2}",$merchAccount,$amt2pay,$unit2pay);
-	//console.log("uri: "+uri2pay);
+    
+    app.tx_tag = Math.floor(Math.random() * 42000000);
+    console.log(app.tx_tag);
+    
+    var uri2pay = kendo.format("https://ripple.com//send?to={0}&amount={1}/{2}&dt={3}",$merchAccount,$amt2pay,$unit2pay,app.tx_tag);
+    
 	qrcode.makeCode(uri2pay);
     $('#paySummary').html(kendo.format("Pay: {0} {1}",$amt2pay,$unit2pay));
+    
+    
+ 
+    
+    //cancel interval
+    clearInterval(app.tx_interval || 0);
+    //set interval
+    app.tx_interval=setInterval(function(){awaitPayment(app.tx_tag);},5000);
+    
 }
 
+    
+function awaitPayment(tx_tag){
+    $merchAccount=localStorage.getItem("com.codzart.rimo.merchant");
+    $amt2pay=($('#amt').val()!="")?$('#amt').val():"0";
+    $unit2pay=$('#unit').val();
+    var uri2pay = kendo.format("https://ripple.com//send?to={0}&amount={1}/{2}",$merchAccount,$amt2pay,$unit2pay);
+    
+    var notificationURI = kendo.format("https://ripple-rest.herokuapp.com/api/v1/addresses/{0}/next_notification",$merchAccount);
+
+    console.log("URI: "+notificationURI);
+    console.log("waiting for: "+app.tx_tag);
+    
+    $.ajax({
+          url: notificationURI
+        }).done(function(data) {
+            //console.log("tx_state: "+ data.notification.tx_state);
+            
+            switch(data.notification.tx_state)
+            {
+            case "empty":
+              console.log("unpaid...");
+              $('#txnStatus').html("Status: UNPAID @ "+kendo.toString(new Date(), "G"));
+              break;
+            case "confirmed":                
+              $.ajax({
+                      url: data.notification.tx_url
+                    }).done(function(data) {
+                        //console.log("tx_state: "+ data.notification.tx_state);
+                        
+                        switch(data.payment.dst_tag)
+                        {                        
+                        case app.tx_tag:                
+                          console.log("paid...");
+                          $('#txnStatus').html("Status: PAID @ "+kendo.toString(new Date(), "G"));
+                          clearInterval(app.tx_interval || 0);  
+                          break;
+                        default:
+                          //
+                        }
+                      //$( this ).addClass( "done" );
+                });
+              break;
+            default:
+              $('#txnStatus').html("Status: UNPAID @ "+kendo.toString(new Date(), "G"));
+            }
+          //$( this ).addClass( "done" );
+    });
+ }   
 makeCode();
 
 $("#merch").
 	on("blur", function () {
 		makeCode();
-	});        
+	});      
+    
+   
 $("#amt").
-	on("change", function () {
+	on("blur", function () {
 		makeCode();
 	});
+    
+    
 $("#unit").
 	on("change", function () {
 		makeCode();
-	});        
+	});     
         
-        
+
 </script>
 </body>
 </html>
