@@ -43,9 +43,9 @@ body, html {
 .logo {
     background-image: url(../styles/images/logo.png);
     background-repeat: no-repeat;
-    width: 319px;
-    height: 60px;
-    margin: 40px auto;
+    width: 240px;
+    height: 70px;
+    margin: auto;    
 }
 
 .share {
