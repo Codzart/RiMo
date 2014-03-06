@@ -12,7 +12,6 @@
     
     <script src="scripts/app.js"></script>
     <script src="scripts/qrcode.min.js"></script>
-    <script src="scripts/jquery.min.js"></script>
 
 </head>
 <body>
@@ -23,6 +22,7 @@
         <div class="view-content" style="text-align:center;">
             
             <h1>Texas Bitcoin Conference 2014</h1>Hackathon<br><br>
+            <div class="logo"></div>
             <p><br><br>Ripple Mobile Merchant App<br><br></p><p>It doesn't get much simpler. Just enter the sale details, and present the scan code to your customer for payment.</p>
             <div><a id="skin-change" data-role="button" data-click="app.changeSkin">Flat</a></div>
         </div>
@@ -74,9 +74,25 @@
             <ul data-role="listview" data-style="inset">
                 <li><p style="text-align:center;">Present the QR Code below to your customer for payment.</p></li>
                 <li style="text-align:center;">
-                    <div id="qrcode" style="width:200px; height:200px; margin-top:15px;"></div>
+                    <div id="qrcode" class="ctrdiv" style="width:200px; height:200px; margin-top:15px;"></div>
+                    <label id="paySummary"></label>
                 </li>
             </ul>                       
+        </div>
+    </div>
+    
+    <!--Share-->
+    <div id="tabstrip-share"
+        data-role="view"
+        data-title="Share the Code">        
+        <div class="view-content" style="text-align:center;">
+            <ul data-role="listview" data-style="inset">
+                <li><p style="text-align:center;">Pass this code to a friend to share this App.</p></li>
+                <li style="text-align:center;">
+                    <div class="ctrdiv share" style="width:200px; height:200px; margin-top:15px;"></div>
+                </li>
+            </ul> 
+            <p>Source code available at:<br><a href="https://github.com/Codzart/RiMo">https://github.com/Codzart/RiMo</a></p>
         </div>
     </div>
 
@@ -134,6 +150,7 @@
                 <a href="#tabstrip-home" data-icon="home">Home</a>
                 <a href="#tabstrip-details" data-icon="info">Details</a>              
                 <a href="#tabstrip-scan" data-icon="globe">Get Paid</a>         
+                <a href="#tabstrip-share" data-icon="share">Share</a>         
             </div>
         </div>
     </div>
@@ -166,6 +183,7 @@ function makeCode () {
     var uri2pay = kendo.format("https://ripple.com//send?to={0}&amount={1}/{2}",$merchAccount,$amt2pay,$unit2pay);
 	//console.log("uri: "+uri2pay);
 	qrcode.makeCode(uri2pay);
+    $('#paySummary').html(kendo.format("Pay: {0} {1}",$amt2pay,$unit2pay));
 }
 
 makeCode();

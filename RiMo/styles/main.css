@@ -1,4 +1,4 @@
-#qrcode {
+.ctrdiv {
   width: 200px ;
   margin-left: auto ;
   margin-right: auto ;
@@ -42,6 +42,14 @@ body, html {
 
 .logo {
     background-image: url(../styles/images/logo.png);
+    background-repeat: no-repeat;
+    width: 319px;
+    height: 60px;
+    margin: 40px auto;
+}
+
+.share {
+    background-image: url(../styles/images/share.png);
     background-repeat: no-repeat;
     width: 319px;
     height: 60px;
